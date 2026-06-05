@@ -4,38 +4,42 @@ export enum QuestionType {
   CHECKBOX = 'CHECKBOX',
 }
 
-// Типи для POST запиту (відповідають твоїм DTO в NestJS)
-export interface CreateQuestionPayload {
+export const QUESTION_TYPE_META: Record<QuestionType, { label: string; badgeClass: string }> = {
+  [QuestionType.BOOLEAN]: { label: 'True / False', badgeClass: 'text-blue-500 bg-blue-500/[0.12]' },
+  [QuestionType.INPUT]: { label: 'Short answer', badgeClass: 'text-violet-500 bg-violet-500/[0.12]' },
+  [QuestionType.CHECKBOX]: { label: 'Multiple choice', badgeClass: 'text-amber-500 bg-amber-500/[0.12]' },
+};
+
+export type CreateQuestionPayload = {
   type: QuestionType;
   text: string;
   options?: string[];
-}
+};
 
-export interface CreateQuizPayload {
+export type CreateQuizPayload = {
   title: string;
   questions: CreateQuestionPayload[];
-}
+};
 
-// Типи для отримання даних з БД (відповідають Prisma Models)
-export interface Question {
+export type Question = {
   id: string;
   type: QuestionType;
   text: string;
-  options: string[] | null; // Prisma Json? повертає null, якщо немає даних
+  options: string[] | null;
   quizId: string;
-}
+};
 
-export interface Quiz {
+export type Quiz = {
   id: string;
   title: string;
-  createdAt: string; // NestJS повертає DateTime як ISO рядок
+  createdAt: string;
   questions?: Question[];
   _count?: {
     questions: number;
   };
-}
+};
 
-export interface PaginatedQuizzes {
+export type PaginatedQuizzes = {
   items: Quiz[];
   total: number;
   page: number;
@@ -43,10 +47,9 @@ export interface PaginatedQuizzes {
   totalPages: number;
   hasNext: boolean;
   hasPrev: boolean;
-}
+};
 
-// Тип для відповідей Server Actions
-export interface ActionResponse {
+export type ActionResponse = {
   success: boolean;
   error?: string;
-}
+};
