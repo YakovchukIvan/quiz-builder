@@ -140,6 +140,37 @@ All scripts run from the **monorepo root**.
 
 ---
 
+## Pagination
+
+The `GET /quizzes` endpoint supports pagination via query parameters.
+
+| Parameter | Type    | Default | Description             |
+| --------- | ------- | ------- | ----------------------- |
+| `page`    | integer | `1`     | Page number (min: 1)    |
+| `limit`   | integer | `10`    | Items per page (min: 1) |
+
+**Example request:**
+
+```bash
+GET /quizzes?page=1&limit=5
+```
+
+**Example response:**
+
+```json
+{
+  "items": [...],
+  "total": 12,
+  "page": 1,
+  "limit": 5,
+  "totalPages": 3,
+  "hasNext": true,
+  "hasPrev": false
+}
+```
+
+---
+
 ## Pages
 
 | Route          | Description                                                 |
