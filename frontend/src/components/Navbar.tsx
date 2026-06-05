@@ -14,7 +14,7 @@ export function Navbar() {
         <ThemeToggle />
 
         <Link href="/create" className="btn btn-primary shrink-0">
-          + Create Quiz
+          Create Quiz
         </Link>
       </div>
     </header>

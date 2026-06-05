@@ -24,8 +24,8 @@ export class QuizService {
   }
 
   async findAll(pagination: PaginationDto) {
-    const page = Number(pagination.page ?? 1);
-    const limit = Number(pagination.limit ?? 10);
+    const page = pagination.page || 1;
+    const limit = pagination.limit || 10;
     const skip = (page - 1) * limit;
 
     const [items, total] = await Promise.all([

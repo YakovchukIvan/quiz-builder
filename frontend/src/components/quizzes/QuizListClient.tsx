@@ -1,8 +1,7 @@
 'use client';
 
-import { useOptimistic, useTransition } from 'react';
-import { PaginatedQuizzes, Quiz } from '@/types';
-import { deleteQuizAction } from '@/lib/actions';
+import { useOptimistic } from 'react';
+import { PaginatedQuizzes } from '@/types';
 import { QuizCard } from './QuizCard';
 import { QuizPagination } from './QuizPagination';
 import { QuizHeader } from './QuizHeader';
@@ -14,43 +13,35 @@ type Props = {
 };
 
 export function QuizListClient({ paginatedData }: Props) {
-  const [isPending, startTransition] = useTransition();
+  const [optimisticData, setOptimisticData] = useOptimistic(paginatedData, (currentState, idToRemove) => {
+    const updatedItems = currentState.items.filter((quiz) => quiz.id !== idToRemove);
+    const isItemRemoved = currentState.items.length !== updatedItems.length;
 
-  const { items, total, page, totalPages, limit, hasPrev, hasNext } = paginatedData;
+    return {
+      ...currentState,
+      items: updatedItems,
+      total: isItemRemoved ? Math.max(0, currentState.total - 1) : currentState.total,
+    };
+  });
 
-  const [optimisticQuizzes, setOptimisticQuizzes] = useOptimistic(items, (currentState: Quiz[], idToRemove: string) =>
-    currentState.filter((quiz) => quiz.id !== idToRemove),
-  );
-
-  const handleDelete = async (id: string) => {
-    startTransition(async () => {
-      setOptimisticQuizzes(id);
-      const result = await deleteQuizAction(id);
-
-      if (!result.success) {
-        alert(result.error || 'Failed to delete the quiz. Reverting...');
-      }
-    });
-  };
-
-  const emptyRowsCount = limit - optimisticQuizzes.length;
+  const { items, total, page, totalPages, limit, hasPrev, hasNext } = optimisticData;
+  const emptyRowsCount = limit - items.length;
 
   return (
     <div className="container">
       <QuizHeader total={total} />
 
       <div className="card overflow-hidden min-h-160.5">
-        {optimisticQuizzes.length === 0 ? (
+        {items.length === 0 && total === 0 ? (
           <QuizEmptyState />
         ) : (
           <>
-            {optimisticQuizzes.map((quiz, i) => (
+            {items.map((quiz, i) => (
               <QuizCard
                 key={quiz.id}
                 quiz={quiz}
-                isLast={i === optimisticQuizzes.length - 1 && emptyRowsCount === 0}
-                onDelete={handleDelete}
-                disabled={isPending}
+                isLast={i === items.length - 1 && emptyRowsCount === 0}
+                onDelete={setOptimisticData}
               />
             ))}
 
