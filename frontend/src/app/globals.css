@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 
-/* Tailwind v4 — dark mode через клас .dark на <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -21,7 +20,6 @@
   --radius-lg: 0.75rem;
 }
 
-/* ── Base ───────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -38,7 +36,6 @@ body {
     color 0.2s;
 }
 
-/* ── Dark overrides ─────────────────────────────── */
 .dark {
   --color-bg: #09090b;
   --color-bg-card: #18181b;
@@ -50,7 +47,6 @@ body {
   --color-danger: #f87171;
 }
 
-/* ── Reusable utility classes ───────────────────── */
 @layer components {
   .card {
     background: var(--color-bg-card);
@@ -139,7 +135,6 @@ body {
   }
 }
 
-/* ── Scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
 }
