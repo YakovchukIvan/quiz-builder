@@ -1,26 +1,152 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tailwind v4 — dark mode через клас .dark на <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-bg: #fafaf9;
+  --color-bg-card: #ffffff;
+  --color-border: #e4e4e7;
+  --color-text: #18181b;
+  --color-muted: #71717a;
+  --color-accent: #18181b;
+  --color-accent-fg: #fafaf9;
+  --color-danger: #ef4444;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+/* ── Dark overrides ─────────────────────────────── */
+.dark {
+  --color-bg: #09090b;
+  --color-bg-card: #18181b;
+  --color-border: #27272a;
+  --color-text: #fafaf9;
+  --color-muted: #a1a1aa;
+  --color-accent: #fafaf9;
+  --color-accent-fg: #09090b;
+  --color-danger: #f87171;
+}
+
+/* ── Reusable utility classes ───────────────────── */
+@layer components {
+  .card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08);
+  }
+
+  .dark .card {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: opacity 0.15s;
+    text-decoration: none;
+  }
+  .btn:hover {
+    opacity: 0.8;
+  }
+  .btn:active {
+    opacity: 0.6;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text);
+  }
+
+  .btn-danger {
+    background: transparent;
+    color: var(--color-danger);
+  }
+  .btn-danger:hover {
+    background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+  }
+
+  .input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+    color: var(--color-text);
+    font-size: 0.875rem;
+    outline: none;
+    transition:
+      border-color 0.15s,
+      box-shadow 0.15s;
+  }
+  .input:focus {
+    border-color: var(--color-muted);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 12%, transparent);
+  }
+  .input::placeholder {
+    color: var(--color-muted);
+  }
+
+  .label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    display: block;
+    margin-bottom: 0.375rem;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 48rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+}
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 99px;
 }

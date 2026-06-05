@@ -2,31 +2,24 @@
   "name": "quiz-builder",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm --prefix backend run start:dev",
+    "dev:frontend": "npm --prefix frontend run dev",
     "lint:backend": "cd backend && npm run lint",
     "lint:frontend": "cd frontend && npm run lint",
-    "lint:all": "npm run lint:backend && npm run lint:frontend",
+    "lint:all": "concurrently \"npm run lint:backend\" \"npm run lint:frontend\"",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
-    "dev:backend": "cd backend && npm run start:dev",
-    "dev:frontend": "cd frontend && npm run dev",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
-    "prettier": "^3.0.0"
-  },
-  "lint-staged": {
-    "frontend/**/*.{ts,tsx,js,jsx}": [
-      "cd frontend && npm run lint",
-      "cd frontend && prettier --write"
-    ],
-    "backend/**/*.{ts,js}": [
-      "cd backend && npm run lint",
-      "cd backend && prettier --write"
-    ],
-    "*.{json,md}": [
-      "prettier --write"
-    ]
+    "prettier": "^3.0.0",
+    "concurrently": "^9.0.0"
   }
 }
