@@ -17,6 +17,14 @@
     "prettier": "^3.0.0"
   },
   "lint-staged": {
+    "frontend/**/*.{ts,tsx,js,jsx}": [
+      "cd frontend && npm run lint",
+      "cd frontend && prettier --write"
+    ],
+    "backend/**/*.{ts,js}": [
+      "cd backend && npm run lint",
+      "cd backend && prettier --write"
+    ],
     "*.{json,md}": [
       "prettier --write"
     ]
