@@ -18,14 +18,14 @@ Built as a monorepo with a NestJS backend and a Next.js frontend.
 
 ## Project Structure
 
+```
 quiz-builder/
-├── backend/ # NestJS REST API
-├── frontend/ # Next.js App Router
-├── .husky/ # Git hooks (lint + typecheck on commit/push)
-├── .prettierrc # Shared Prettier config
-└── package.json # Monorepo root with shared scripts
-
----
+├── backend/         # NestJS REST API
+├── frontend/        # Next.js App Router
+├── .husky/          # Git hooks (lint + typecheck on commit/push)
+├── .prettierrc      # Shared Prettier config
+└── package.json     # Monorepo root with shared scripts
+```
 
 ## Prerequisites
 
