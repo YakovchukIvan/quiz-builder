@@ -1,3 +1,5 @@
+import { TableRow, TableCell } from '@/components/ui/table';
+
 type Props = {
   count: number;
 };
@@ -8,7 +10,9 @@ export function QuizEmptyRows({ count }: Props) {
   return (
     <>
       {Array.from({ length: count }).map((_, i) => (
-        <div key={`empty-${i}`} className={`h-16 ${i < count - 1 ? 'border-b border-border' : ''}`} />
+        <TableRow key={`empty-${i}`} className="h-16 border-b-0 hover:bg-transparent">
+          <TableCell colSpan={3} />
+        </TableRow>
       ))}
     </>
   );

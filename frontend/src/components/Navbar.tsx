@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ThemeToggle } from './ThemeToggle';
+import { buttonVariants } from '@/components/ui/button';
 
 export function Navbar() {
   return (
@@ -13,7 +14,7 @@ export function Navbar() {
 
         <ThemeToggle />
 
-        <Link href="/create" className="btn btn-primary shrink-0">
+        <Link href="/create" className={buttonVariants({ variant: 'default', className: 'shrink-0' })}>
           Create Quiz
         </Link>
       </div>

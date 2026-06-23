@@ -7,6 +7,8 @@ import { QuizPagination } from './QuizPagination';
 import { QuizHeader } from './QuizHeader';
 import { QuizEmptyState } from './QuizEmptyState';
 import { QuizEmptyRows } from './QuizEmptyRows';
+import { Card, CardContent } from '@/components/ui/card';
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 type Props = {
   paginatedData: PaginatedQuizzes;
@@ -31,24 +33,30 @@ export function QuizListClient({ paginatedData }: Props) {
     <div className="container">
       <QuizHeader total={total} />
 
-      <div className="card overflow-hidden min-h-160.5">
-        {items.length === 0 && total === 0 ? (
-          <QuizEmptyState />
-        ) : (
-          <>
-            {items.map((quiz, i) => (
-              <QuizCard
-                key={quiz.id}
-                quiz={quiz}
-                isLast={i === items.length - 1 && emptyRowsCount === 0}
-                onDelete={setOptimisticData}
-              />
-            ))}
+      <Card className="overflow-hidden min-h-160.5">
+        <CardContent className="p-0">
+          {items.length === 0 && total === 0 ? (
+            <QuizEmptyState />
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="font-semibold">Quiz Title</TableHead>
+                  <TableHead className="w-32 font-semibold">Questions</TableHead>
+                  <TableHead className="w-16 text-right font-semibold">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {items.map((quiz) => (
+                  <QuizCard key={quiz.id} quiz={quiz} onDelete={setOptimisticData} />
+                ))}
 
-            <QuizEmptyRows count={emptyRowsCount} />
-          </>
-        )}
-      </div>
+                <QuizEmptyRows count={emptyRowsCount} />
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
 
       <QuizPagination page={page} totalPages={totalPages} hasPrev={hasPrev} hasNext={hasNext} />
     </div>
