@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateQuizDto } from './create-quiz.dto';
 import { PaginationDto } from './pagination.dto';
@@ -55,13 +55,23 @@ export class QuizService {
   }
 
   async findOne(id: string) {
-    return await this.prisma.client.quiz.findUnique({
+    const quiz = await this.prisma.client.quiz.findUnique({
       where: { id },
       include: { questions: true },
     });
+    if (!quiz) {
+      throw new NotFoundException(`Quiz with ID "${id}" not found`);
+    }
+    return quiz;
   }
 
   async remove(id: string) {
+    const quiz = await this.prisma.client.quiz.findUnique({
+      where: { id },
+    });
+    if (!quiz) {
+      throw new NotFoundException(`Quiz with ID "${id}" not found`);
+    }
     return await this.prisma.client.quiz.delete({ where: { id } });
   }
 }

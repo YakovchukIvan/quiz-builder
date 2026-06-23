@@ -1,8 +1,8 @@
 'use client';
 
-import { useTransition } from 'react';
-import { deleteQuizAction } from '@/lib/actions';
+import { useDeleteQuiz } from '@/hooks/use-delete-quiz';
 import { Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   id: string;
@@ -10,24 +10,22 @@ type Props = {
 };
 
 export function DeleteButton({ id, onOptimisticDelete }: Props) {
-  const [isPending, startTransition] = useTransition();
-
-  const handleDelete = () => {
-    startTransition(async () => {
-      onOptimisticDelete(id);
-      await deleteQuizAction(id);
-    });
-  };
+  const { isPending, handleDelete } = useDeleteQuiz({
+    id,
+    onOptimisticDelete,
+  });
 
   return (
-    <button
+    <Button
+      variant="ghost"
+      size="icon"
       onClick={handleDelete}
       disabled={isPending}
-      className="btn btn-danger py-1.5 px-2 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+      className="text-danger hover:bg-danger/10 py-1.5 px-2 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
       aria-label="Delete quiz"
       title="Delete quiz"
     >
       <Trash2 size={16} className={isPending ? 'animate-pulse opacity-50' : ''} />
-    </button>
+    </Button>
   );
 }
