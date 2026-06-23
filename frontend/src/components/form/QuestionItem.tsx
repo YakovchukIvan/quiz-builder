@@ -3,6 +3,10 @@
 import { useFormContext } from 'react-hook-form';
 import { QUESTION_TYPE_META, QuestionType } from '@/types';
 import type { CreateQuizSchema } from '@/lib/schemas';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 type Props = {
   index: number;
@@ -45,28 +49,28 @@ export function QuestionItem({ index, onRemove }: Props) {
           {QUESTION_TYPE_META[type].label}
         </span>
         <div className="flex-1" />
-        <button type="button" className="btn btn-danger py-1 px-2 text-xs" onClick={onRemove}>
+        <Button type="button" variant="destructive" size="sm" onClick={onRemove}>
           ✕ Remove
-        </button>
+        </Button>
       </div>
 
       <div className="mb-3.5">
         <label className="label">Question text</label>
-        <input className="input" placeholder="Enter your question…" {...register(`questions.${index}.text`)} />
+        <Input placeholder="Enter your question…" {...register(`questions.${index}.text`)} />
         {questionError && 'text' in questionError && questionError.text?.message && (
           <p className="text-xs text-danger mt-1">{questionError.text.message as string}</p>
         )}
       </div>
 
       {type === QuestionType.BOOLEAN && (
-        <div className="flex gap-4">
+        <RadioGroup defaultValue="True" className="flex flex-row gap-4" disabled>
           {['True', 'False'].map((opt) => (
             <div key={opt} className="flex items-center gap-2 text-sm text-muted">
-              <span className="w-4 h-4 rounded-full border-2 border-border shrink-0" />
-              <span>{opt}</span>
+              <RadioGroupItem value={opt} id={`bool-${index}-${opt}`} />
+              <label htmlFor={`bool-${index}-${opt}`}>{opt}</label>
             </div>
           ))}
-        </div>
+        </RadioGroup>
       )}
 
       {type === QuestionType.INPUT && (
@@ -80,32 +84,39 @@ export function QuestionItem({ index, onRemove }: Props) {
           {options.map((_, idx) => (
             <div key={idx} className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
-                <input
-                  className={`input flex-1 ${optionErrors[idx] ? 'border-danger' : ''}`}
+                <Checkbox id={`check-${index}-${idx}`} disabled />
+                <Input
+                  className={optionErrors[idx] ? 'border-danger' : ''}
                   placeholder={`Option ${idx + 1}`}
                   {...register(`questions.${index}.options.${idx}`)}
                 />
                 {options.length > 2 && (
-                  <button
+                  <Button
                     type="button"
-                    className="btn btn-danger py-1 px-1.5 shrink-0"
+                    variant="destructive"
+                    size="icon"
+                    className="h-9 w-9 shrink-0"
                     onClick={() => removeOption(idx)}
                   >
                     ✕
-                  </button>
+                  </Button>
                 )}
               </div>
               {optionErrors[idx]?.message && <p className="text-xs text-danger">{optionErrors[idx].message}</p>}
             </div>
           ))}
 
-          {questionError && 'options' in questionError && questionError.options?.root?.message && (
-            <p className="text-xs text-danger">{questionError.options.root.message as string}</p>
-          )}
+          {questionError &&
+            'options' in questionError &&
+            (questionError.options?.message || questionError.options?.root?.message) && (
+              <p className="text-xs text-danger">
+                {(questionError.options.message || questionError.options.root?.message) as string}
+              </p>
+            )}
 
-          <button type="button" className="btn btn-ghost self-start text-[13px] mt-1" onClick={addOption}>
+          <Button type="button" variant="ghost" size="sm" className="self-start mt-1" onClick={addOption}>
             + Add option
-          </button>
+          </Button>
         </div>
       )}
     </div>

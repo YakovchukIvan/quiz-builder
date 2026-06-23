@@ -1,7 +1,6 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { CreateQuizPayload, ActionResponse } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
@@ -46,14 +45,15 @@ export async function createQuizAction(data: CreateQuizPayload): Promise<ActionR
     }
 
     revalidatePath('/quizzes');
+    return {
+      success: true,
+    };
   } catch (error: unknown) {
     console.error('Create quiz error:', error);
 
     return {
       success: false,
-      error: 'Failed to create quiz',
+      error: 'Database connection failed or internal server error',
     };
   }
-
-  redirect('/quizzes');
 }

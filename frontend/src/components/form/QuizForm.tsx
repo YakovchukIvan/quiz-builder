@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { QUESTION_TYPE_META, QuestionType } from '@/types';
 import { useQuizForm } from '@/hooks/use-quiz-form';
 import { QuestionItem } from './QuestionItem';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export function QuizForm() {
   const { methods, fields, isPending, addQuestion, removeQuestion, onSubmit, errors, register } = useQuizForm();
@@ -21,7 +23,7 @@ export function QuizForm() {
           <label className="label" htmlFor="quiz-title">
             Quiz title
           </label>
-          <input id="quiz-title" className="input" placeholder="JavaScript Basics" {...register('title')} />
+          <Input id="quiz-title" placeholder="JavaScript Basics" {...register('title')} />
           {errors.title && <p className="text-xs text-danger mt-1">{errors.title.message}</p>}
         </div>
 
@@ -33,26 +35,38 @@ export function QuizForm() {
           </div>
         )}
 
-        {errors.questions?.root && <p className="text-xs text-danger mb-3">{errors.questions.root.message}</p>}
+        {(errors.questions?.message || errors.questions?.root?.message) && (
+          <p className="text-xs text-danger mb-3">
+            {(errors.questions.message || errors.questions.root?.message) as string}
+          </p>
+        )}
+
+        {errors.root && <p className="text-xs text-danger mb-3">{errors.root.message}</p>}
 
         <div className="card p-5 mb-6">
           <p className="label mb-3">Add question</p>
           <div className="flex gap-2 flex-wrap">
             {(Object.values(QuestionType) as QuestionType[]).map((type) => (
-              <button key={type} type="button" className="btn btn-ghost text-[13px]" onClick={() => addQuestion(type)}>
+              <Button
+                key={type}
+                type="button"
+                variant="ghost"
+                className="text-[13px]"
+                onClick={() => addQuestion(type)}
+              >
                 + {QUESTION_TYPE_META[type].label}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
 
         <div className="flex justify-end gap-3">
-          <Link href="/quizzes" className="btn btn-ghost">
+          <Link href="/quizzes" className={buttonVariants({ variant: 'ghost' })}>
             Cancel
           </Link>
-          <button type="submit" className="btn btn-primary disabled:opacity-50" disabled={isPending}>
+          <Button type="submit" variant="default" disabled={isPending}>
             {isPending ? 'Creating…' : 'Create Quiz'}
-          </button>
+          </Button>
         </div>
       </form>
     </FormProvider>

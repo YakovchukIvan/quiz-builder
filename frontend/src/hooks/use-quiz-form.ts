@@ -1,11 +1,13 @@
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { createQuizSchema, type CreateQuizSchema } from '@/lib/schemas';
 import { createQuizAction } from '@/lib/actions';
 import { QuestionType } from '@/types';
 
 export function useQuizForm() {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const methods = useForm<CreateQuizSchema>({
@@ -32,7 +34,7 @@ export function useQuizForm() {
 
   const onSubmit = (data: CreateQuizSchema) => {
     startTransition(async () => {
-      await createQuizAction({
+      const result = await createQuizAction({
         title: data.title,
         questions: data.questions.map(({ type, text, options }) => ({
           type,
@@ -40,6 +42,15 @@ export function useQuizForm() {
           options: type === QuestionType.CHECKBOX ? options : undefined,
         })),
       });
+
+      if (result.success) {
+        router.push('/quizzes');
+      } else {
+        methods.setError('root', {
+          type: 'server',
+          message: result.error || 'Failed to create quiz',
+        });
+      }
     });
   };
 
