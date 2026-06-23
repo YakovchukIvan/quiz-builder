@@ -32,6 +32,34 @@ export function useQuizForm() {
     });
   };
 
+  const removeQuestion = (index: number) => {
+    remove(index);
+  };
+
+  const addOption = (questionIndex: number) => {
+    const questions = methods.getValues('questions');
+    const question = questions[questionIndex];
+    if (question && question.type === QuestionType.CHECKBOX) {
+      const currentOptions = question.options || [];
+      methods.setValue(`questions.${questionIndex}.options`, [...currentOptions, ''], {
+        shouldValidate: true,
+      });
+    }
+  };
+
+  const removeOption = (questionIndex: number, optionIndex: number) => {
+    const questions = methods.getValues('questions');
+    const question = questions[questionIndex];
+    if (question && question.type === QuestionType.CHECKBOX) {
+      const currentOptions = question.options || [];
+      methods.setValue(
+        `questions.${questionIndex}.options`,
+        currentOptions.filter((_, i) => i !== optionIndex),
+        { shouldValidate: true },
+      );
+    }
+  };
+
   const onSubmit = (data: CreateQuizSchema) => {
     startTransition(async () => {
       const result = await createQuizAction({
@@ -59,7 +87,9 @@ export function useQuizForm() {
     fields,
     isPending,
     addQuestion,
-    removeQuestion: remove,
+    removeQuestion,
+    addOption,
+    removeOption,
     onSubmit: methods.handleSubmit(onSubmit),
     errors: methods.formState.errors,
     register: methods.register,

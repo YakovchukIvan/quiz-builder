@@ -7,17 +7,19 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Card } from '@/components/ui/card';
 
 type Props = {
   index: number;
   onRemove: () => void;
+  onAddOption: (questionIndex: number) => void;
+  onRemoveOption: (questionIndex: number, optionIndex: number) => void;
 };
 
-export function QuestionItem({ index, onRemove }: Props) {
+export function QuestionItem({ index, onRemove, onAddOption, onRemoveOption }: Props) {
   const {
     register,
     watch,
-    setValue,
     formState: { errors },
   } = useFormContext<CreateQuizSchema>();
 
@@ -28,19 +30,15 @@ export function QuestionItem({ index, onRemove }: Props) {
     questionError && 'options' in questionError ? (questionError.options as Record<number, { message?: string }>) : {};
 
   const addOption = () => {
-    setValue(`questions.${index}.options`, [...options, ''], { shouldValidate: true });
+    onAddOption(index);
   };
 
   const removeOption = (idx: number) => {
-    setValue(
-      `questions.${index}.options`,
-      options.filter((_, i) => i !== idx),
-      { shouldValidate: true },
-    );
+    onRemoveOption(index, idx);
   };
 
   return (
-    <div className="card p-5">
+    <Card className="p-5">
       <div className="flex items-center gap-3 mb-3.5">
         <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold text-muted shrink-0 border border-border">
           {index + 1}
@@ -119,6 +117,6 @@ export function QuestionItem({ index, onRemove }: Props) {
           </Button>
         </div>
       )}
-    </div>
+    </Card>
   );
 }
