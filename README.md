@@ -1,18 +1,13 @@
-Ось оновлений файл `README.md`. Я повністю адаптував структуру проєкту, спираючись на наданий тобою скріншот image_c04959.png.
-
-Тепер структура дерева файлів точно відповідає реальності, а секція про AI Agent містить правильні команди для встановлення Antigravity CLI через PowerShell, а також опис папки `.agy` та файлу `AGENTS.md`.
-
-Скопіюй цей код:
 
 ---
 
-````markdown
+```markdown
 https://github.com/user-attachments/assets/1a3d6e5c-9a34-48a6-be1f-1d5121cb4893
 
 # Quiz Builder
 
-A full-stack web and mobile ecosystem for creating and managing quizzes.
-Users can create quizzes with three question types — True/False, Short answer,
+A full-stack web and mobile ecosystem for creating and managing quizzes. 
+Users can create quizzes with three question types — True/False, Short answer, 
 and Multiple choice — view all quizzes in a dashboard, and inspect each quiz in detail.
 
 Built as a monorepo with a NestJS backend, a Next.js web frontend, a React Native mobile application, and integrated Antigravity CLI for AI-assisted development.
@@ -44,15 +39,15 @@ quiz-builder/
 ├── AGENTS.md             # Main documentation and entry point for AI Agents
 ├── package.json          # Monorepo root with shared scripts
 └── README.md             # Project documentation
+
 ```
-````
 
 ## Prerequisites
 
-- Node.js 20+
-- Docker (for local PostgreSQL)
-- **Expo Go** app installed on your iOS/Android device (for mobile testing)
-- Windows PowerShell (for Antigravity CLI installation)
+* Node.js 20+
+* Docker (for local PostgreSQL)
+* **Expo Go** app installed on your iOS/Android device (for mobile testing)
+* Windows PowerShell (for Antigravity CLI installation)
 
 ---
 
@@ -124,7 +119,7 @@ NEXT_PUBLIC_API_URL=[http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ```dotenv
 # Backend API base URL (Use your local network IP for physical device testing, e.g., 192.168.x.x)
-EXPO_PUBLIC_API_URL=[http://127.0.0.1:8000](http://127.0.0.1:8000)
+EXPO_PUBLIC_API_URL=[http://127.0.0.1:8000](http://127.0.0.1:8000) 
 
 ```
 
@@ -143,8 +138,8 @@ npm run dev
 
 ```
 
-- Frontend: [http://localhost:3000](http://localhost:3000)
-- Backend API: [http://localhost:8000](http://localhost:8000)
+* Frontend: [http://localhost:3000](http://localhost:3000)
+* Backend API: [http://localhost:8000](http://localhost:8000)
 
 ### 7. Start the Mobile App (React Native)
 
@@ -156,7 +151,7 @@ npx expo start
 
 ```
 
-_To view the app, scan the generated QR code with the **Expo Go** app on your phone, or press `a` to open in Android Emulator / `i` for iOS Simulator._
+*To view the app, scan the generated QR code with the **Expo Go** app on your phone, or press `a` to open in Android Emulator / `i` for iOS Simulator.*
 
 ---
 
@@ -174,9 +169,9 @@ This monorepo is fully configured to work with the **Antigravity CLI**, enabling
 ```
 
 2. **Review the Agent configuration:**
-   Check the `AGENTS.md` file in the root directory for available commands and agent capabilities.
+Check the `AGENTS.md` file in the root directory for available commands and agent capabilities.
 3. **Run the Agent:**
-   The agent automatically reads the context from the `.agy/` folder, adapting its behavior based on whether it is touching the `backend/`, `frontend/`, or `mobile/` environments.
+The agent automatically reads the context from the `.agy/` folder, adapting its behavior based on whether it is touching the `backend/`, `frontend/`, or `mobile/` environments.
 
 ---
 
@@ -184,29 +179,29 @@ This monorepo is fully configured to work with the **Antigravity CLI**, enabling
 
 All scripts run from the **monorepo root**.
 
-| Script                    | Description                             |
-| ------------------------- | --------------------------------------- |
-| `npm run dev`             | Start backend and frontend concurrently |
-| `npm run dev:backend`     | Start backend only in watch mode        |
-| `npm run dev:frontend`    | Start web frontend only                 |
-| `npm run dev:mobile`      | Start React Native Expo server          |
-| `npm run lint:all`        | Lint backend, frontend, and mobile      |
-| `npm run format`          | Format all files with Prettier          |
-| `npm run prisma:generate` | Generate Prisma client                  |
-| `npm run prisma:migrate`  | Run database migrations                 |
-| `npm run prisma:studio`   | Open Prisma Studio — database GUI       |
-| `npm run prisma:seed`     | Seed the database with sample data      |
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start backend and frontend concurrently |
+| `npm run dev:backend` | Start backend only in watch mode |
+| `npm run dev:frontend` | Start web frontend only |
+| `npm run dev:mobile` | Start React Native Expo server |
+| `npm run lint:all` | Lint backend, frontend, and mobile |
+| `npm run format` | Format all files with Prettier |
+| `npm run prisma:generate` | Generate Prisma client |
+| `npm run prisma:migrate` | Run database migrations |
+| `npm run prisma:studio` | Open Prisma Studio — database GUI |
+| `npm run prisma:seed` | Seed the database with sample data |
 
 ---
 
 ## API Endpoints
 
-| Method   | Endpoint       | Description                   |
-| -------- | -------------- | ----------------------------- |
-| `POST`   | `/quizzes`     | Create a new quiz             |
-| `GET`    | `/quizzes`     | Get paginated list of quizzes |
-| `GET`    | `/quizzes/:id` | Get full quiz details         |
-| `DELETE` | `/quizzes/:id` | Delete a quiz                 |
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `POST` | `/quizzes` | Create a new quiz |
+| `GET` | `/quizzes` | Get paginated list of quizzes |
+| `GET` | `/quizzes/:id` | Get full quiz details |
+| `DELETE` | `/quizzes/:id` | Delete a quiz |
 
 ---
 
@@ -214,30 +209,30 @@ All scripts run from the **monorepo root**.
 
 The `GET /quizzes` endpoint supports pagination via query parameters.
 
-| Parameter | Type    | Default | Description             |
-| --------- | ------- | ------- | ----------------------- |
-| `page`    | integer | `1`     | Page number (min: 1)    |
-| `limit`   | integer | `10`    | Items per page (min: 1) |
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `page` | integer | `1` | Page number (min: 1) |
+| `limit` | integer | `10` | Items per page (min: 1) |
 
 ---
 
 ## Pages / Screens
 
-| Environment | Route / Screen | Description                                                 |
-| ----------- | -------------- | ----------------------------------------------------------- |
-| **Web**     | `/quizzes`     | Dashboard — list of all quizzes with question count         |
-| **Web**     | `/create`      | Quiz builder — form to create a quiz with dynamic questions |
-| **Mobile**  | `Home`         | Mobile dashboard with native `FlatList` of quizzes          |
-| **Mobile**  | `QuizDetails`  | Read-only view of a specific quiz optimized for mobile      |
+| Environment | Route / Screen | Description |
+| --- | --- | --- |
+| **Web** | `/quizzes` | Dashboard — list of all quizzes with question count |
+| **Web** | `/create` | Quiz builder — form to create a quiz with dynamic questions |
+| **Mobile** | `Home` | Mobile dashboard with native `FlatList` of quizzes |
+| **Mobile** | `QuizDetails` | Read-only view of a specific quiz optimized for mobile |
 
 ---
 
 ## Question Types
 
-| Type                | Description                                 |
-| ------------------- | ------------------------------------------- |
-| **True / False**    | Boolean question with two fixed options     |
-| **Short answer**    | Open text input field                       |
+| Type | Description |
+| --- | --- |
+| **True / False** | Boolean question with two fixed options |
+| **Short answer** | Open text input field |
 | **Multiple choice** | Checkbox list with 2 or more custom options |
 
 ```
