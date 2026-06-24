@@ -47,7 +47,8 @@ These exact versions are confirmed working together. Do not change major/minor v
     "zod": "^4.4.3",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.6.0",
-    "lucide-react-native": "^0.514.0",
+    "lucide-react-native": "^1.21.0",
+    "react-native-svg": "^15.0.0",
     "class-variance-authority": "^0.7.1"
   },
   "devDependencies": {
