@@ -28,7 +28,7 @@ export default function CreateQuizScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"
       >
-        <ScrollView className="bg-bg-light dark:bg-bg-dark" contentContainerClassName="p-6 gap-6" keyboardShouldPersistTaps="handled">
+        <ScrollView contentContainerClassName="p-6 gap-6 bg-bg-light dark:bg-bg-dark flex-grow" keyboardShouldPersistTaps="handled">
           {/* Header Title inside ScrollView */}
           <View className="mb-2">
             <Text className="text-2xl font-bold text-text-main-light dark:text-text-main-dark tracking-tight">Create Quiz</Text>

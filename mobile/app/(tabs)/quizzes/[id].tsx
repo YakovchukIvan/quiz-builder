@@ -45,7 +45,7 @@ export default function QuizDetailScreen() {
       {/* Set the native stack header title */}
       <Stack.Screen options={{ headerTitle: quiz.title }} />
 
-      <ScrollView className="bg-bg-light dark:bg-bg-dark" contentContainerClassName="p-6 gap-6">
+      <ScrollView contentContainerClassName="p-6 gap-6 bg-bg-light dark:bg-bg-dark flex-grow">
         {quiz.questions.map((question, index) => {
           const meta = typeMeta[question.type];
           return (

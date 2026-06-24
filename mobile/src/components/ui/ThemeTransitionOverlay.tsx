@@ -1,5 +1,5 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import { View, useWindowDimensions, StyleSheet } from 'react-native';
+import { View, useWindowDimensions, StyleSheet, Modal } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -42,8 +42,11 @@ export const ThemeTransitionOverlay = forwardRef<
 
   const handleAnimationEnd = () => {
     onTransitionEnd();
-    setAnimatingTheme(null);
-    scale.value = 0;
+    // Wait one frame for React to render the new theme under the overlay before hiding it
+    requestAnimationFrame(() => {
+      setAnimatingTheme(null);
+      scale.value = 0;
+    });
   };
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -72,9 +75,16 @@ export const ThemeTransitionOverlay = forwardRef<
   if (!animatingTheme) return null;
 
   return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="auto">
-      <Animated.View style={animatedStyle} />
-    </View>
+    <Modal
+      transparent
+      visible={animatingTheme !== null}
+      animationType="none"
+      statusBarTranslucent
+    >
+      <View style={StyleSheet.absoluteFill} pointerEvents="auto">
+        <Animated.View style={animatedStyle} />
+      </View>
+    </Modal>
   );
 });
 

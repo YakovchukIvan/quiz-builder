@@ -16,11 +16,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { setColorScheme: setNWColorScheme } = useNWColorScheme();
   const overlayRef = useRef<ThemeTransitionOverlayRef>(null);
 
+  const targetThemeRef = useRef<'light' | 'dark' | null>(null);
+  const isManualToggleRef = useRef(false);
+
   useEffect(() => {
     const initialScheme = Appearance.getColorScheme();
     setNWColorScheme(initialScheme || 'light');
 
     const sub = Appearance.addChangeListener(({ colorScheme: newScheme }) => {
+      if (isManualToggleRef.current) {
+        // Skip updating states if it's already updated manually.
+        // Just reset the flag.
+        isManualToggleRef.current = false;
+        return;
+      }
       setColorScheme(newScheme);
       setNWColorScheme(newScheme || 'light');
     });
@@ -29,10 +38,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = () => {
     const next = colorScheme === 'dark' ? 'light' : 'dark';
+    targetThemeRef.current = next;
     console.log('Theme switching to (animated):', next);
     if (overlayRef.current) {
       overlayRef.current.startTransition(next);
     } else {
+      isManualToggleRef.current = true;
       Appearance.setColorScheme(next);
       setColorScheme(next);
       setNWColorScheme(next);
@@ -40,8 +51,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   };
 
   const handleTransitionEnd = () => {
-    const next = colorScheme === 'dark' ? 'light' : 'dark';
+    const next = targetThemeRef.current;
+    if (!next) return;
     console.log('Theme switching to:', next);
+    isManualToggleRef.current = true;
     Appearance.setColorScheme(next);
     setColorScheme(next);
     setNWColorScheme(next);
