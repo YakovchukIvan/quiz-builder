@@ -14,8 +14,11 @@ Built as a monorepo with a NestJS backend, a Next.js web frontend, a React Nativ
 ## Tech Stack
 
 **Backend** — NestJS · TypeScript · Prisma · PostgreSQL
+
 **Web Frontend** — Next.js · React · TypeScript · Tailwind CSS · React Hook Form · Zod
+
 **Mobile** — React Native · Expo · TypeScript · StyleSheet
+
 **AI / Tools** — Antigravity CLI
 
 ---
