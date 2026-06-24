@@ -1,15 +1,18 @@
 import React from 'react';
 import { View, Text, ScrollView, Pressable, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import { useCreateQuiz } from '../../../src/hooks/useCreateQuiz';
+import { useQuizzes } from '../../../src/hooks/useQuizzes';
 import { Card, CardContent } from '../../../src/components/ui/Card';
 import { Input } from '../../../src/components/ui/Input';
 import { Button } from '../../../src/components/ui/Button';
 import { Controller } from 'react-hook-form';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScreenWrapper } from '../../../src/components/ui/ScreenWrapper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Trash2, Plus } from 'lucide-react-native';
 import { router } from 'expo-router';
 
 export default function CreateQuizScreen() {
+  const { addQuiz } = useQuizzes();
   const {
     methods,
     fields,
@@ -20,20 +23,22 @@ export default function CreateQuizScreen() {
     loading,
     onSubmit,
     errors,
-  } = useCreateQuiz();
+  } = useCreateQuiz(addQuiz);
+
+  const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark" edges={['left', 'right']}>
+    <ScreenWrapper edges={['left', 'right']}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"
       >
-        <ScrollView contentContainerClassName="p-6 gap-6 bg-bg-light dark:bg-bg-dark flex-grow" keyboardShouldPersistTaps="handled">
-          {/* Header Title inside ScrollView */}
-          <View className="mb-2">
-            <Text className="text-2xl font-bold text-text-main-light dark:text-text-main-dark tracking-tight">Create Quiz</Text>
-            <Text className="text-xs text-text-muted-light dark:text-text-muted-dark font-medium">Add a title and build your questions</Text>
-          </View>
+        <ScrollView 
+          contentContainerClassName="p-6 gap-6 bg-bg-light dark:bg-bg-dark flex-grow" 
+          contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}
+          keyboardShouldPersistTaps="handled"
+        >
+
 
           {/* Quiz Title */}
           <Card className="border border-border-light dark:border-border-dark">
@@ -235,6 +240,6 @@ export default function CreateQuizScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }

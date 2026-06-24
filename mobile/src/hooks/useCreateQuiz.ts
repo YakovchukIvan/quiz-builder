@@ -4,8 +4,9 @@ import { createQuizSchema, type CreateQuizSchema } from '../lib/schemas';
 import { createQuiz as apiCreateQuiz } from '../lib/api';
 import { useState } from 'react';
 import { router } from 'expo-router';
+import { QuizListItem } from '../lib/types';
 
-export function useCreateQuiz() {
+export function useCreateQuiz(onCreated?: (quiz: QuizListItem) => void) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -73,7 +74,14 @@ export function useCreateQuiz() {
           options: q.type === 'CHECKBOX' ? q.options : undefined,
         })),
       };
-      await apiCreateQuiz(payload);
+      const created = await apiCreateQuiz(payload);
+      const quizListItem: QuizListItem = {
+        id: created.id,
+        title: created.title,
+        questionCount: created.questions?.length ?? 0,
+        createdAt: created.createdAt,
+      };
+      onCreated?.(quizListItem);
       methods.reset();
       router.push('/(tabs)/quizzes');
     } catch (e: any) {

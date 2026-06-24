@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 import { useAppTheme } from '../../../src/hooks/useAppTheme';
 import { ThemeToggle } from '../../../src/components/ui/ThemeToggle';
 
-export default function QuizzesLayout() {
+export default function CreateLayout() {
   const { isDark } = useAppTheme();
 
   return (
@@ -23,16 +23,8 @@ export default function QuizzesLayout() {
       <Stack.Screen
         name="index"
         options={{
-          headerShown: true,
           headerTitle: 'Quiz Builder',
           headerRight: () => <ThemeToggle />,
-        }}
-      />
-      <Stack.Screen
-        name="[id]"
-        options={{
-          headerShown: true,
-          headerTitle: 'Quiz Details',
         }}
       />
     </Stack>
