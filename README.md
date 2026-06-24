@@ -1,7 +1,4 @@
 
----
-
-```markdown
 https://github.com/user-attachments/assets/1a3d6e5c-9a34-48a6-be1f-1d5121cb4893
 
 # Quiz Builder
