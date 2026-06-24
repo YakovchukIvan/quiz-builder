@@ -7,7 +7,7 @@ function ThemeToggle() {
   const { isDark, toggleTheme } = useAppTheme();
   return (
     <Pressable onPress={toggleTheme} className="mr-4 p-2 active:opacity-60">
-      {isDark ? <Sun size={20} color="#e2e8f0" /> : <Moon size={20} color="#0f172a" />}
+      {isDark ? <Sun size={20} color="#f7f8fc" /> : <Moon size={20} color="#141628" />}
     </Pressable>
   );
 }
@@ -23,22 +23,22 @@ export default function TabsLayout() {
         headerTitleStyle: {
           fontWeight: 'bold',
           fontSize: 20,
-          color: isDark ? '#f8fafc' : '#0f172a',
+          color: isDark ? '#f7f8fc' : '#141628',
         },
         headerStyle: {
-          backgroundColor: isDark ? '#0f172a' : '#ffffff',
+          backgroundColor: isDark ? '#1e2030' : '#ffffff',
           borderBottomWidth: 1,
-          borderBottomColor: isDark ? '#1e293b' : '#f1f5f9',
+          borderBottomColor: isDark ? '#2a2d3e' : '#e4e7f0',
           elevation: 0,
           shadowOpacity: 0,
         },
         headerRight: () => <ThemeToggle />,
-        tabBarActiveTintColor: isDark ? '#f8fafc' : '#0f172a',
-        tabBarInactiveTintColor: '#94a3b8',
+        tabBarActiveTintColor: isDark ? '#f7f8fc' : '#141628',
+        tabBarInactiveTintColor: '#9ca3af',
         tabBarStyle: {
-          backgroundColor: isDark ? '#0f172a' : '#ffffff',
+          backgroundColor: isDark ? '#1e2030' : '#ffffff',
           borderTopWidth: 1,
-          borderTopColor: isDark ? '#1e293b' : '#f1f5f9',
+          borderTopColor: isDark ? '#2a2d3e' : '#e4e7f0',
           paddingBottom: 5,
           paddingTop: 5,
           height: 60,
@@ -63,7 +63,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="create"
+        name="create/index"
         options={{
           title: 'Create Quiz',
           tabBarIcon: ({ color, size }) => (

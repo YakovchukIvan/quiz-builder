@@ -63,7 +63,7 @@ export const ThemeTransitionOverlay = forwardRef<
       position: 'absolute',
       top,
       left,
-      backgroundColor: animatingTheme === 'dark' ? '#0f172a' : '#f8fafc',
+      backgroundColor: animatingTheme === 'dark' ? '#171825' : '#f0f2f8',
       transform: [{ scale: scale.value }],
       zIndex: 99999,
     };

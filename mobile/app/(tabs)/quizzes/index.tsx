@@ -33,66 +33,68 @@ export default function QuizzesScreen() {
 
   if (loading && data.length === 0) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-slate-50 dark:bg-slate-950">
-        <ActivityIndicator size="large" color="#0f172a" />
+      <SafeAreaView className="flex-1 items-center justify-center bg-bg-light dark:bg-bg-dark">
+        <ActivityIndicator size="large" color="#6b5ce7" />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50 dark:bg-slate-950" edges={['left', 'right']}>
+    <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark" edges={['left', 'right']}>
       {error ? (
         <View className="flex-1 items-center justify-center p-6">
-          <Text className="text-red-500 font-semibold mb-2">Error loading quizzes</Text>
-          <Text className="text-slate-500 dark:text-slate-400 text-center mb-4">{error}</Text>
+          <Text className="text-destructive font-semibold mb-2">Error loading quizzes</Text>
+          <Text className="text-text-muted-light dark:text-text-muted-dark text-center mb-4">{error}</Text>
           <Button variant="outline" title="Try Again" onPress={refetch} />
         </View>
       ) : data.length === 0 ? (
         <ScrollView 
+          className="bg-bg-light dark:bg-bg-dark"
           contentContainerClassName="flex-1 items-center justify-center p-8"
           refreshControl={<RefreshControl refreshing={loading} onRefresh={refetch} />}
         >
-          <Layers size={48} color="#94a3b8" className="mb-4" />
-          <Text className="text-lg font-bold text-slate-900 dark:text-slate-50 mb-1">No Quizzes Found</Text>
-          <Text className="text-sm text-slate-500 dark:text-slate-400 text-center">
+          <Layers size={48} color="#6b5ce7" className="mb-4" />
+          <Text className="text-lg font-bold text-text-main-light dark:text-text-main-dark mb-1">No Quizzes Found</Text>
+          <Text className="text-sm text-text-muted-light dark:text-text-muted-dark text-center">
             Pull down to refresh or create a new quiz.
           </Text>
         </ScrollView>
       ) : (
         <ScrollView 
+          className="bg-bg-light dark:bg-bg-dark"
           contentContainerClassName="p-6 gap-4"
           refreshControl={
             <RefreshControl 
               refreshing={loading} 
               onRefresh={refetch} 
-              tintColor="#94a3b8"
+              tintColor="#6b5ce7"
             />
           }
         >
           {data.map((item) => (
-            <Card key={item.id} className="border border-slate-200 dark:border-slate-800">
+            <Card key={item.id}>
               <Pressable onPress={() => handleQuizPress(item.id)}>
                 <CardHeader>
-                  <CardTitle className="text-base text-slate-900 dark:text-slate-50 font-bold">{item.title}</CardTitle>
+                  <CardTitle className="text-base font-bold">{item.title}</CardTitle>
                   <CardDescription className="flex-row items-center gap-1.5 mt-1">
-                    <Calendar size={13} color="#64748b" />
-                    <Text className="text-slate-500 dark:text-slate-400 text-xs">
+                    <Calendar size={13} color="#6b5ce7" />
+                    <Text className="text-text-muted-light dark:text-text-muted-dark text-xs">
                       Created: {formatDate(item.createdAt)}
                     </Text>
                   </CardDescription>
                 </CardHeader>
                 <CardFooter className="justify-between items-center pt-2">
-                  <View className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-full px-3 py-1">
-                    <Text className="text-xs font-semibold text-slate-600 dark:text-slate-300">
+                  <View className="bg-bg-light dark:bg-border-dark border border-border-light dark:border-border-dark rounded-full px-3 py-1">
+                    <Text className="text-xs font-semibold text-text-main-light dark:text-text-main-dark">
                       {item.questionCount} {item.questionCount === 1 ? 'question' : 'questions'}
                     </Text>
                   </View>
                   <Button
                     variant="outline"
-                    className="p-2 border-transparent bg-red-50 dark:bg-red-950/20 active:bg-red-100 dark:active:bg-red-950/40"
+                    className="p-2 border-transparent bg-destructive/10 active:bg-destructive/20"
                     onPress={() => deleteQuiz(item.id)}
                   >
-                    <Trash2 size={16} color="#dc2626" />
+                    <Trash2 size={16} color="#ef4444" />
                   </Button>
                 </CardFooter>
               </Pressable>
@@ -103,7 +105,7 @@ export default function QuizzesScreen() {
           <View className="py-4 items-center justify-center">
             {hasMore ? (
               loadingMore ? (
-                <ActivityIndicator size="small" color="#0f172a" />
+                <ActivityIndicator size="small" color="#6b5ce7" />
               ) : (
                 <Button 
                   title="Load next 10" 
@@ -113,7 +115,7 @@ export default function QuizzesScreen() {
                 />
               )
             ) : (
-              <Text className="text-sm text-slate-400 dark:text-slate-600 font-medium">
+              <Text className="text-sm text-text-muted-light dark:text-text-muted-dark font-medium">
                 No more quizzes
               </Text>
             )}

@@ -8,10 +8,10 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border-transparent bg-slate-900 dark:bg-slate-50',
-        secondary: 'border-transparent bg-slate-100 dark:bg-slate-800',
-        destructive: 'border-transparent bg-red-100 dark:bg-red-950/30',
-        outline: 'border-slate-200 dark:border-slate-800 bg-transparent',
+        default: 'border-transparent bg-text-main-light dark:bg-text-main-dark',
+        secondary: 'border-transparent bg-bg-light dark:bg-border-dark',
+        destructive: 'border-transparent bg-destructive/10 dark:bg-destructive/20',
+        outline: 'border-border-light dark:border-border-dark bg-transparent',
         boolean: 'border-transparent bg-blue-50 dark:bg-blue-950/30',
         input: 'border-transparent bg-violet-50 dark:bg-violet-950/30',
         checkbox: 'border-transparent bg-amber-50 dark:bg-amber-950/30',
@@ -26,10 +26,10 @@ const badgeVariants = cva(
 const badgeTextVariants = cva('text-xs font-semibold leading-none py-0.5', {
   variants: {
     variant: {
-      default: 'text-slate-50 dark:text-slate-900',
-      secondary: 'text-slate-900 dark:text-slate-50',
-      destructive: 'text-red-700 dark:text-red-400',
-      outline: 'text-slate-900 dark:text-slate-50',
+      default: 'text-card-light dark:text-card-dark',
+      secondary: 'text-text-main-light dark:text-text-main-dark',
+      destructive: 'text-destructive dark:text-red-400',
+      outline: 'text-text-main-light dark:text-text-main-dark',
       boolean: 'text-blue-600 dark:text-blue-400',
       input: 'text-violet-600 dark:text-violet-400',
       checkbox: 'text-amber-600 dark:text-amber-400',

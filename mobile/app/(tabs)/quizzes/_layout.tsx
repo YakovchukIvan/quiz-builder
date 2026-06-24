@@ -7,7 +7,7 @@ function ThemeToggle() {
   const { isDark, toggleTheme } = useAppTheme();
   return (
     <Pressable onPress={toggleTheme} className="mr-4 p-2 active:opacity-60">
-      {isDark ? <Sun size={20} color="#e2e8f0" /> : <Moon size={20} color="#0f172a" />}
+      {isDark ? <Sun size={20} color="#f7f8fc" /> : <Moon size={20} color="#141628" />}
     </Pressable>
   );
 }
@@ -19,14 +19,14 @@ export default function QuizzesLayout() {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: isDark ? '#0f172a' : '#ffffff',
+          backgroundColor: isDark ? '#1e2030' : '#ffffff',
         },
         headerTitleStyle: {
           fontWeight: 'bold',
           fontSize: 20,
-          color: isDark ? '#f8fafc' : '#0f172a',
+          color: isDark ? '#f7f8fc' : '#141628',
         },
-        headerTintColor: isDark ? '#f8fafc' : '#0f172a',
+        headerTintColor: isDark ? '#f7f8fc' : '#141628',
         headerShadowVisible: false,
       }}
     >

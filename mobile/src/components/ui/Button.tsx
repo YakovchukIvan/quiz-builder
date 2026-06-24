@@ -8,9 +8,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-slate-950 dark:bg-slate-50',
-        destructive: 'bg-red-600 dark:bg-red-700',
-        outline: 'border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900',
+        default: 'bg-primary',
+        destructive: 'bg-destructive',
+        outline: 'border border-border-light bg-card-light dark:border-border-dark dark:bg-card-dark',
       },
     },
     defaultVariants: {
@@ -24,9 +24,9 @@ const buttonTextVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-white dark:text-slate-900',
+        default: 'text-white',
         destructive: 'text-white',
-        outline: 'text-slate-900 dark:text-slate-50',
+        outline: 'text-text-main-light dark:text-text-main-dark',
       },
     },
     defaultVariants: {

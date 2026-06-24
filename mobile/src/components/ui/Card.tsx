@@ -5,7 +5,7 @@ import { cn } from '../../lib/utils';
 export function Card({ className, ...props }: ViewProps) {
   return (
     <View
-      className={cn('rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 shadow-sm overflow-hidden', className)}
+      className={cn('rounded-2xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark shadow-sm overflow-hidden', className)}
       {...props}
     />
   );
@@ -23,7 +23,7 @@ export function CardHeader({ className, ...props }: ViewProps) {
 export function CardTitle({ className, ...props }: TextProps) {
   return (
     <Text
-      className={cn('text-lg font-semibold leading-none tracking-tight text-slate-900 dark:text-slate-50', className)}
+      className={cn('text-lg font-semibold leading-none tracking-tight text-text-main-light dark:text-text-main-dark', className)}
       {...props}
     />
   );
@@ -32,7 +32,7 @@ export function CardTitle({ className, ...props }: TextProps) {
 export function CardDescription({ className, ...props }: TextProps) {
   return (
     <Text
-      className={cn('text-sm text-slate-500 dark:text-slate-400', className)}
+      className={cn('text-sm text-text-muted-light dark:text-text-muted-dark', className)}
       {...props}
     />
   );

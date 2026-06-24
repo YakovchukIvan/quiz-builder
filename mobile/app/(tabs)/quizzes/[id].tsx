@@ -19,47 +19,47 @@ export default function QuizDetailScreen() {
 
   if (loading) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-slate-50 dark:bg-slate-950">
-        <ActivityIndicator size="large" color="#0f172a" />
+      <SafeAreaView className="flex-1 items-center justify-center bg-bg-light dark:bg-bg-dark">
+        <ActivityIndicator size="large" color="#6b5ce7" />
       </SafeAreaView>
     );
   }
 
   if (error || !quiz) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-slate-50 dark:bg-slate-950 p-6">
-        <Text className="text-red-500 font-semibold mb-2">Error loading quiz</Text>
-        <Text className="text-slate-500 dark:text-slate-400 text-center mb-4">{error || 'Quiz not found'}</Text>
+      <SafeAreaView className="flex-1 items-center justify-center bg-bg-light dark:bg-bg-dark p-6">
+        <Text className="text-destructive font-semibold mb-2">Error loading quiz</Text>
+        <Text className="text-text-muted-light dark:text-text-muted-dark text-center mb-4">{error || 'Quiz not found'}</Text>
         <Pressable
-          className="bg-slate-900 dark:bg-slate-50 px-4 py-2.5 rounded-xl active:opacity-80"
+          className="bg-primary px-4 py-2.5 rounded-xl active:opacity-80"
           onPress={() => router.back()}
         >
-          <Text className="text-white dark:text-slate-900 font-semibold">Go Back</Text>
+          <Text className="text-white font-semibold">Go Back</Text>
         </Pressable>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50 dark:bg-slate-950" edges={['left', 'right']}>
+    <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark" edges={['left', 'right']}>
       {/* Set the native stack header title */}
       <Stack.Screen options={{ headerTitle: quiz.title }} />
 
-      <ScrollView contentContainerClassName="p-6 gap-6">
+      <ScrollView className="bg-bg-light dark:bg-bg-dark" contentContainerClassName="p-6 gap-6">
         {quiz.questions.map((question, index) => {
           const meta = typeMeta[question.type];
           return (
-            <Card key={question.id} className="border border-slate-200 dark:border-slate-800">
+            <Card key={question.id}>
               <CardContent className="p-5">
                 <View className="flex-row gap-3 mb-4">
-                  <View className="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
-                    <Text className="text-xs font-bold text-slate-500 dark:text-slate-400">{index + 1}</Text>
+                  <View className="w-6 h-6 rounded-full border border-border-light dark:border-border-dark bg-bg-light dark:bg-border-dark flex items-center justify-center">
+                    <Text className="text-xs font-bold text-text-muted-light dark:text-text-muted-dark">{index + 1}</Text>
                   </View>
                   <View className="flex-1 gap-1">
                     <View className="flex-row">
                       <Badge variant={meta.variant} label={meta.label} />
                     </View>
-                    <Text className="text-[15px] font-semibold text-slate-900 dark:text-slate-50 leading-snug">
+                    <Text className="text-[15px] font-semibold text-text-main-light dark:text-text-main-dark leading-snug">
                       {question.text}
                     </Text>
                   </View>
@@ -71,17 +71,17 @@ export default function QuizDetailScreen() {
                     <View className="flex-row gap-4">
                       {['True', 'False'].map((opt) => (
                         <View key={opt} className="flex-row items-center gap-2">
-                          <Circle size={16} color="#94a3b8" />
-                          <Text className="text-sm text-slate-500 dark:text-slate-400 font-medium">{opt}</Text>
+                          <Circle size={16} color="#6b5ce7" />
+                          <Text className="text-sm text-text-muted-light dark:text-text-muted-dark font-medium">{opt}</Text>
                         </View>
                       ))}
                     </View>
                   )}
 
                   {question.type === 'INPUT' && (
-                    <View className="h-10 rounded-xl border border-dashed border-slate-200 dark:border-slate-800 flex-row items-center px-3 bg-slate-50 dark:bg-slate-900 gap-2">
-                      <AlignLeft size={14} color="#94a3b8" />
-                      <Text className="text-xs text-slate-400 dark:text-slate-500 font-medium">Text answer...</Text>
+                    <View className="h-10 rounded-xl border border-dashed border-border-light dark:border-border-dark flex-row items-center px-3 bg-bg-light dark:bg-card-dark gap-2">
+                      <AlignLeft size={14} color="#6b5ce7" />
+                      <Text className="text-xs text-text-muted-light dark:text-text-muted-dark font-medium">Text answer...</Text>
                     </View>
                   )}
 
@@ -89,8 +89,8 @@ export default function QuizDetailScreen() {
                     <View className="gap-2">
                       {question.options.map((opt) => (
                         <View key={opt.id} className="flex-row items-center gap-2">
-                          <CheckSquare size={16} color="#94a3b8" />
-                          <Text className="text-sm text-slate-500 dark:text-slate-400 font-medium">{opt.text}</Text>
+                          <CheckSquare size={16} color="#6b5ce7" />
+                          <Text className="text-sm text-text-muted-light dark:text-text-muted-dark font-medium">{opt.text}</Text>
                         </View>
                       ))}
                     </View>

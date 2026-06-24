@@ -29,6 +29,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = () => {
     const next = colorScheme === 'dark' ? 'light' : 'dark';
+    console.log('Theme switching to (animated):', next);
     if (overlayRef.current) {
       overlayRef.current.startTransition(next);
     } else {
@@ -40,6 +41,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const handleTransitionEnd = () => {
     const next = colorScheme === 'dark' ? 'light' : 'dark';
+    console.log('Theme switching to:', next);
     Appearance.setColorScheme(next);
     setColorScheme(next);
     setNWColorScheme(next);
